@@ -8,37 +8,34 @@
 import SwiftUI
 
 struct FrameworkGridView: View {
+    @StateObject var viewModal = FrameworkGridViewModel()
+    
     let columns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     let data = MockData()
     var body: some View {
-        VStack {
-            LazyVGrid(columns: columns) {
-                FrameworkView(icon: "app-clip"', title: "App Clip")
+        NavigationView {
+            ScrollView {
+                VStack {
+                    LazyVGrid(columns: columns) {
+                        ForEach(MockData.frameworks) { framework in
+                            FrameworkView(icon: framework.imageName, title: framework.name)
+                                .onTapGesture {
+                                    viewModal.selectedItem = framework
+                                }
+                        }
+                    }
+                }
+            }
+            .padding()
+            .navigationTitle("Frameworks")
+            .sheet(isPresented: $viewModal.isShowingDetails) {
+                DetailView(framework: viewModal.selectedItem ?? MockData.sampleFramework, isShowingDetailView: $viewModal.isShowingDetails)
             }
         }
-        .padding()
+       
     }
 }
 
 #Preview {
     FrameworkGridView()
-}
-
-struct FrameworkView: View {
-    let icon: String
-    let title: String
-    
-    var body: some View {
-        VStack {
-            Image(icon)
-                .resizable()
-                .frame(width: 90, height: 90)
-            Text(title)
-                .bold()
-                .font(.title)
-                .scaledToFit()
-                .minimumScaleFactor(0.5)
-        }
-        
-    }
 }
