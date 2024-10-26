@@ -14,9 +14,5 @@ final class FrameworkGridViewModel: ObservableObject {
         }
     }
     @Published var isShowingDetails: Bool = false
-    
-//    init(_ selectedItem: Framework) {
-//        self.selectedItem = selectedItem
-//    }
 }
 

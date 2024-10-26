@@ -10,9 +10,7 @@ import SwiftUI
 struct AFButton: View {
     let title: String
     var body: some View {
-        Button(title) {
-            print("Button Pressed")
-        }
+        Text(title)
         .bold()
         .font(.title2)
         .frame(width: 280, height: 70)

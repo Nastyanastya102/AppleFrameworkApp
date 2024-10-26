@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailView: View {
     let framework: Framework
     @Binding var isShowingDetailView: Bool
+    @State private var isShowingActionSheet: Bool = false
     
     var body: some View {
         NavigationView {
@@ -30,10 +31,16 @@ struct DetailView: View {
                 Text(framework.description)
                     .padding(12)
                 Spacer()
-                AFButton(title: "Learn more")
+                Button {
+                    isShowingActionSheet = true
+                } label: {
+                    AFButton(title: "Learn more")
+                }
             }
         }
-        
+        .sheet(isPresented: $isShowingActionSheet) {
+            SafaryView(url: (URL(string: framework.urlString) ?? URL(string: "https://apple.com")!))
+        }
        
         
     }

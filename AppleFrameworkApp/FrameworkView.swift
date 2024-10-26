@@ -25,8 +25,6 @@ struct FrameworkView: View {
     }
 }
 
-
-//
-//#Preview {
-//    FrameworkView()
-//}
+#Preview {
+    FrameworkView(icon: "app-icon", title: "Dummy text")
+}
